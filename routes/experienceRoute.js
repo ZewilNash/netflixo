@@ -1,0 +1,22 @@
+const router = require("express").Router()
+const {createExperience , removeUserFromExperience , getSingleExperience , userDeleteExperience , userEditExperience , getUserLikedExperiences , getExperienceLikesCount , likeExperience , unLikeExperience , getExperienceComments , comment , getExperiencesForUser , getExperienceTheme , searchExperience , getExperiences} = require("../controllers/experience")
+const {isSignin} = require("../middleware/auth")
+const formidable = require("express-formidable")
+
+router.post("/create/:id" , isSignin , formidable() , createExperience)
+router.get("/get" , getExperiences)
+router.get("/search" , searchExperience)
+router.get("/get-theme/:id" , getExperienceTheme)
+router.get("/user-experiences/:id" , getExperiencesForUser)
+router.put("/comment/:id/:userid" , isSignin , comment)
+router.get("/get-comments/:id" ,getExperienceComments)
+router.put("/like/:id/:userid" ,likeExperience)
+router.put("/unlike/:id/:userid" ,unLikeExperience)
+router.get("/likesCount/:id" ,getExperienceLikesCount)
+router.get("/user-liked-experiences/:id" ,getUserLikedExperiences)
+router.delete("/delete/:id" , isSignin ,userDeleteExperience)
+router.put("/update/:id/:userid" , isSignin , formidable() ,userEditExperience)
+router.get("/single/:id" ,getSingleExperience)
+router.put("/remove-from-like-list/:id/:userid" , isSignin ,removeUserFromExperience)
+
+module.exports = router
